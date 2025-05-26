@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Captioning App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <h1>Image captioning<br>application</h1>
+            <form method="POST" enctype="multipart/form-data">
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <label class="custom-file-upload">
+                        <input type="file" id="imageInput" name="image" accept="image/*" required onchange="updateFilename(this); previewImage(this);">
+                        Choose your photo
+                    </label>
+                    <span id="filename">{{ image_url.split('/')[-1] if image_url else 'No file chosen' }}</span>
+                </div>
+                <button type="submit">Generate Caption</button>
+            </form>
+
+            <p style="margin-top: 20px;"><strong>Generated Caption:</strong><br>
+                {{ caption if caption else '' }}
+            </p>
+        </div>
+
+        <div class="right-panel">
+            <h2>Chosen photo:</h2>
+            <img id="preview" style="width: 100%; border-radius: 8px;" {% if image_url %}src="/{{ image_url }}"{% endif %}>
+        </div>
+
+    </div>
+
+<script>
+    function updateFilename(input) {
+        const filenameSpan = document.getElementById('filename');
+        filenameSpan.textContent = input.files[0]?.name || 'No file chosen';
+    }
+
+    function previewImage(input) {
+        const preview = document.getElementById('preview');
+        const file = input.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+
+</body>
+</html>
