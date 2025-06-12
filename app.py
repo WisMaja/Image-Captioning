@@ -7,8 +7,8 @@ UPLOAD_FOLDER = "static/uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # Konfiguracja Azure AI Vision
-AZURE_API_KEY = os.getenv("AZURE_API_KEY")
-AZURE_ENDPOINT = os.getenv("AZURE_ENDPOINT")
+AZURE_API_KEY = "D2XN3qoofGN9weRIp69lINPjnNfX9ZHlZyHjSzDEupaZ9MtBSPodJQQJ99BFAC5RqLJXJ3w3AAAEACOG69kT"
+AZURE_ENDPOINT = "https://imagecaptioningservice.cognitiveservices.azure.com/"
 VISION_API_URL = AZURE_ENDPOINT + "vision/v3.2/analyze?visualFeatures=Description"
 
 @app.route("/", methods=["GET", "POST"])
